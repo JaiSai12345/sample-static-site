@@ -1,0 +1,32 @@
+from PIL import Image, ImageDraw, ImageFont
+
+# Create a new blank image
+width, height = 800, 600
+image = Image.new('RGB', (width, height), 'white')
+
+# Initialize the drawing context
+draw = ImageDraw.Draw(image)
+
+# Draw a simple "mountain" shape (triangle)
+mountain_points = [(200, 500), (400, 200), (600, 500)]
+draw.polygon(mountain_points, fill='gray', outline='black')
+
+# Add some text
+text = "Mount"
+try:
+    # Try to use a built-in font
+    font = ImageFont.truetype("arial.ttf", 40)
+except IOError:
+    # If the built-in font is not available, use the default font
+    font = ImageFont.load_default()
+
+text_width, text_height = draw.textsize(text, font=font)
+text_x = (width - text_width) / 2
+text_y = height - text_height - 10
+draw.text((text_x, text_y), text, font=font, fill='black')
+
+# Save the image
+image.save('Mount.jpg')
+
+print("Image 'Mount.jpg' created successfully.")
+
